@@ -11,7 +11,7 @@ public class BookingController : ControllerBase
 
     private readonly ILogger<BookingController> _logger;
     private readonly IMessageProducer _messageProducer;
-    private List<Booking> _booking = new();
+    public static List<Booking> _bookings = new();
 
     public BookingController(ILogger<BookingController> logger, IMessageProducer messageProducer)
      => (_logger, _messageProducer) = (logger, messageProducer);
@@ -21,7 +21,7 @@ public class BookingController : ControllerBase
     {
         if (!ModelState.IsValid) return BadRequest();
 
-        _booking.Add(newbooking);
+        _bookings.Add(newbooking);
 
         _messageProducer.SendingMessage<Booking>(newbooking);
 
